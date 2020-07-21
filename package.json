@@ -1,6 +1,6 @@
 {
   "name": "coc-format-json",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "format JSON with the power of coc.nvim",
   "author": "Gerald <i@gerald.top>",
   "license": "MIT",
