@@ -4,17 +4,17 @@ import {
   workspace,
 } from 'coc.nvim';
 import { Position, Range } from 'vscode-languageserver-types';
-import { IRangeContent, IOptions } from './types';
-import { format } from './format';
+import { format, FormatJSONOptions } from '@gera2ld/format-json';
+import { IRangeContent } from './types';
 
-const optionsJSON: IOptions = {
+const optionsJSON: FormatJSONOptions = {
   indent: 2,
   quote: '"',
   quoteAsNeeded: false,
   trailing: false,
   template: false,
 };
-const optionsJS: IOptions = {
+const optionsJS: FormatJSONOptions = {
   indent: 2,
   quote: '\'',
   quoteAsNeeded: true,
@@ -42,12 +42,12 @@ async function getContent(hasSelection = false): Promise<IRangeContent> {
   };
 }
 
-function getOptions(args: string[]): IOptions {
+function getOptions(args: string[]): FormatJSONOptions {
   const rawOptions: { [key: string]: string } = {};
-  let key;
+  let key: string;
   for (const arg of args) {
     if (arg.startsWith('--')) {
-      let value;
+      let value: string;
       [key, value] = arg.slice(2).split('=');
       key = key.replace(/-(\w)/g, (_m, g) => g.toUpperCase());
       rawOptions[key] = value ?? 'true';
@@ -55,7 +55,7 @@ function getOptions(args: string[]): IOptions {
       rawOptions[key] = arg;
     }
   }
-  let options: IOptions;
+  let options: FormatJSONOptions;
   if (rawOptions.presetJs === 'true') {
     options = { ...optionsJS };
   } else {
@@ -69,7 +69,7 @@ function getOptions(args: string[]): IOptions {
   return options;
 }
 
-async function formatJson(content: IRangeContent, options: IOptions): Promise<void> {
+async function formatJson(content: IRangeContent, options: FormatJSONOptions): Promise<void> {
   const formatted = format(content.text, options);
   if (content.range) {
     const doc = await workspace.document;
