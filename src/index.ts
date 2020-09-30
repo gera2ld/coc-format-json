@@ -3,7 +3,6 @@ import {
   commands,
   workspace,
 } from 'coc.nvim';
-import { Position, Range } from 'vscode-languageserver-types';
 import { format, FormatJSONOptions } from '@gera2ld/format-json';
 import { IRangeContent } from './types';
 
@@ -23,15 +22,9 @@ const optionsJS: FormatJSONOptions = {
 };
 
 async function getContent(hasSelection = false): Promise<IRangeContent> {
-  const { nvim } = workspace;
   const doc = await workspace.document;
+  const range = await workspace.getSelectedRange('v', doc);
   if (hasSelection) {
-    await nvim.command('normal! `<');
-    const start = await workspace.getCursorPosition();
-    await nvim.command('normal! `>');
-    let end = await workspace.getCursorPosition();
-    end = Position.create(end.line, end.character + 1);
-    const range = Range.create(start, end);
     return {
       range,
       text: doc.textDocument.getText(range),

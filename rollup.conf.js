@@ -6,6 +6,7 @@ const FILENAME = 'index';
 const BANNER = `/*! ${pkg.name} v${pkg.version} | ${pkg.license} License */`;
 
 const external = getRollupExternal([
+  '@gera2ld/format-json',
   'coc.nvim',
   'json5',
   'vscode-languageserver-types',
