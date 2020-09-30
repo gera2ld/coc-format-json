@@ -25,7 +25,8 @@
     "types"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "typings": "types/index.d.ts",
   "devDependencies": {
