@@ -4,6 +4,7 @@ import {
   workspace,
 } from 'coc.nvim';
 import { format, FormatJSONOptions } from '@gera2ld/format-json';
+import JSON5 from 'json5';
 import { IRangeContent } from './types';
 
 const optionsJSON: FormatJSONOptions = {
@@ -63,7 +64,7 @@ function getOptions(args: string[]): FormatJSONOptions {
 }
 
 async function formatJson(content: IRangeContent, options: FormatJSONOptions): Promise<void> {
-  const formatted = format(content.text, options);
+  const formatted = format(JSON5.parse(content.text), options);
   if (content.range) {
     const doc = await workspace.document;
     doc.applyEdits([{ range: content.range, newText: formatted }]);
