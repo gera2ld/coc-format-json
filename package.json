@@ -12,6 +12,7 @@
     "build:types": "tsc",
     "build:js": "rollup -c rollup.conf.js",
     "build": "run-s ci clean build:types build:js",
+    "prepublishOnly": "run-s build",
     "prepare": "husky install"
   },
   "main": "dist/index.common.js",
