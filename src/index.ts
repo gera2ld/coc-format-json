@@ -22,6 +22,10 @@ const optionsJS: FormatJSONOptions = {
   template: true,
 };
 
+function keysOriginalOrder(obj: object) {
+  return Object.entries(obj);
+}
+
 async function getContent(hasSelection = false): Promise<IRangeContent> {
   const doc = await workspace.document;
   const range = await workspace.getSelectedRange('v', doc);
@@ -60,6 +64,7 @@ function getOptions(args: string[]): FormatJSONOptions {
   if (rawOptions.quoteAsNeeded != null) options.quoteAsNeeded = rawOptions.quoteAsNeeded === 'true';
   if (rawOptions.template != null) options.template = rawOptions.template === 'true';
   if (rawOptions.trailing != null) options.trailing = rawOptions.trailing === 'true';
+  if (rawOptions.sortKeys !== 'true') options.entries = keysOriginalOrder;
   return options;
 }
 

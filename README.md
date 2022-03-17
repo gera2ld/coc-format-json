@@ -72,6 +72,12 @@ While enabled, an dangling comma will be added to the last entry in each array a
 
 While enabled, multiline strings will be serialized as template literals quoted with `` ` ``, instead of using escaped characters like `\n`.
 
+### --sort-keys
+
+`--sort-keys` or `--sort-keys=<true|false>`
+
+While enabled, keys of an object will be sorted alphabetically.
+
 ## Presets
 
 Some presets are available to set a group of options:
