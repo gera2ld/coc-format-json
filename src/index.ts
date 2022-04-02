@@ -3,7 +3,7 @@ import {
   commands,
   workspace,
 } from 'coc.nvim';
-import { format, FormatJSONOptions } from '@gera2ld/format-json';
+import { format, FormatJSONData, FormatJSONOptions } from '@gera2ld/format-json';
 import JSON5 from 'json5';
 import { IRangeContent } from './types';
 
@@ -22,8 +22,8 @@ const optionsJS: FormatJSONOptions = {
   template: true,
 };
 
-function keysOriginalOrder(obj: object) {
-  return Object.entries(obj);
+function keysOriginalOrder(obj: Record<string, FormatJSONData>) {
+  return Object.entries<FormatJSONData>(obj);
 }
 
 async function getContent(hasSelection = false): Promise<IRangeContent> {
